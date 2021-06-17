@@ -1,0 +1,36 @@
+
+--composer require jeroennoten/laravel-adminlte
+--php artisan ui vue --auth
+
+--laravel new kpi --jet
+composer create-project laravel/laravel sKPI --jet
+
+composer require spatie/laravel-permission
+--composer require laravelcollective/html
+composer require laravel/ui
+php artisan ui bootstrap --auth
+yes yes yes
+npm install
+php artisan migrate
+npm run dev
+
+npm install admin-lte@^3.1.0 --save
+
+
+php artisan make:migration create_datoskpi_table
+
+php artisan make:model datoskpi -m
+
+INSERT INTO `wildlife_populations` (`id`, `kpi`, `Alvi`,`Unimarc`,`Mayorista10`,`OKMarket`,`fecha`, `created_at`, `updated_at`) VALUES
+(1, 1, 87,85,84,82,'12-09','2020-09-12 00:00:00', NULL),
+(3, 1, 78,70,77,75,'31-08','2019-08-31 00:00:00', NULL),
+(2, 1, 97,96,99,92,'14-07','2018-07-14 00:00:00', NULL),
+(4, 1, 95,95,92,96,'13-06','2017-06-13 00:00:00', NULL),
+(5, 1, 87,89,83,87,'19-05','2016-05-19 00:00:00', NULL),
+(6, 1, 83,86,85,82,'26-04','2015-04-26 00:00:00', NULL),
+(7, 1, 80,82,81,82,'22-03','2014-03-22 00:00:00', NULL),
+(8, 1, 79,79,73,77,'18-02','2013-02-18 00:00:00', NULL);
+
+php artisan make:migration create_indicadorkpi_table 
+php artisan make:migration create_valorDiariokpi_table
+php artisan make:migration create_valorHistoricokpi_table
