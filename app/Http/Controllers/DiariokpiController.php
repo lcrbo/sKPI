@@ -151,7 +151,7 @@ class DiariokpiController extends Controller
                     ->max('hora')
                     ;
 
-        $locales = diariokpi::selectRaw('id, formato, local, valor, substring(hora,1,5) hora, indicadorkpi_id')
+        $locales = diariokpi::selectRaw('id, formato, local, valor,  hora, indicadorkpi_id')
                     ->where('formato','=', $formato)
                     ->where('local','=', $local)
                     ->where('indicadorkpi_id','=', $id)
