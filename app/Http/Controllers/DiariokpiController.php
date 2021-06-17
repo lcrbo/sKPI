@@ -69,7 +69,7 @@ class DiariokpiController extends Controller
                     ->max('hora')
                     ;
 
-        $diariokpis = diariokpi::selectRaw('formato, local, indicadorkpi_id, ROUND(AVG(valor),2) valor')
+        $diariokpis = diariokpi::selectRaw('formato, local, indicadorkpi_id, ROUND(AVG(valor)) valor')
                     ->formato($lformato)
                     ->where('indicadorkpi_id','=', $id)
                     ->where('fecha','=', $ultimoFecha )
@@ -173,7 +173,7 @@ class DiariokpiController extends Controller
         
     
     
-        $alvD = diariokpi::selectRaw('ROUND(AVG(valor),2) alv')
+        $alvD = diariokpi::selectRaw('ROUND(AVG(valor)) alv')
                     ->where('formato','=', $formato)
                     ->where('local','=', $local)
                     ->where('indicadorkpi_id','=',$id) 
