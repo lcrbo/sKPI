@@ -323,26 +323,26 @@ class HomeController extends Controller
                     ->pluck('hora') ;
     
             
-        $alvD = diariokpi::selectRaw('ROUND(AVG(valor)) alv')
+        $alvD = diariokpi::selectRaw('AVG(valor) alv')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','ALV') 
                     ->where('fecha','=',$ultimoFecha)
                     ->groupby('hora')
                     ->pluck('alv') ;
 
-        $uniD = diariokpi::selectRaw('ROUND(AVG(valor)) uni')
+        $uniD = diariokpi::selectRaw('AVG(valor) uni')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','UNI') 
                     ->where('fecha','=',$ultimoFecha)
                     ->groupby('hora')
                     ->pluck('uni') ;
-        $m10D = diariokpi::selectRaw('ROUND(AVG(valor)) m10')
+        $m10D = diariokpi::selectRaw('AVG(valor) m10')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','M10') 
                     ->where('fecha','=',$ultimoFecha)
                     ->groupby('hora')
                     ->pluck('m10') ;
-        $okmD = diariokpi::selectRaw('ROUND(AVG(valor)) okm')
+        $okmD = diariokpi::selectRaw('AVG(valor) okm')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','OKM') 
                     ->where('fecha','=',$ultimoFecha)
