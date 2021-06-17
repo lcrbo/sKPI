@@ -168,7 +168,7 @@
                       <figure class="highcharts-figure">
                         <div id="containerD"></div>
                       </figure>
-
+                      {{$alvD}}
                       @endif
                     </div>
                   </div>
@@ -966,16 +966,6 @@
 
             }
           },
-
-
-
-
-
-
-
-
-
-
 
           series: [{
             label: {

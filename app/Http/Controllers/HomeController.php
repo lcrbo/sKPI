@@ -315,7 +315,7 @@ class HomeController extends Controller
                     
 /* diario  */
   
-        $fechasD = diariokpi::selectRaw(' hora') 
+        $fechasD = diariokpi::selectRaw('hora') 
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','ALV') 
                     ->where('fecha','=',$ultimoFecha)
