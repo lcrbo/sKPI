@@ -360,7 +360,7 @@ class HomeController extends Controller
         $colorOKM = '#6C147F';
         $colorUNI = 'red';
         
-   
+        dd($alvD);
         return view('home2', 
                 compact('kpi',
                 'fechasD','alvD','uniD','m10D','okmD',
