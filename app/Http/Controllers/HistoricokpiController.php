@@ -29,9 +29,9 @@ class HistoricokpiController extends Controller
         $kpi = Indicadorkpi::find(1);
         View::share('kpi', $kpi);
         $locales = diariokpi::selectRaw('local')
-        ->groupby('local')
-         ->get() ;
-View::share('locales', $locales);
+                    ->groupby('local')
+                    ->get() ;
+        View::share('locales', $locales);
         
     }
 
@@ -122,8 +122,6 @@ View::share('locales', $locales);
                     ->RangoFecha($lstartDate,$lendDate)
                     ->where('fecha','>=', $fechaInicioH)
                     ->orderby('fecha','asc')
-
-                    
                     ->paginate();
 
        
@@ -149,6 +147,8 @@ View::share('locales', $locales);
                                 ->where('fecha','>=', $fechaInicioH)
                                 ->groupby('fecha')
                                 ->pluck('alv') ;
+
+                                
         $colorALV = 'blue';
         $colorM10 = '#FF7733';
         $colorOKM = '#6C147F';

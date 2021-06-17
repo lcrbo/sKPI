@@ -31,8 +31,8 @@ class HomeController extends Controller
         
         View::share('kpi', $kpi);
         $locales = diariokpi::selectRaw('local')
-                          ->groupby('local')
-                           ->get() ;
+                            ->groupby('local')
+                            ->get() ;
         View::share('locales', $locales);
         
     }
@@ -51,11 +51,11 @@ class HomeController extends Controller
                         ;
 
         $diariokpis = diariokpi::selectRaw('indicadorkpi_id id, formato')
-                          ->where('fecha','=', $ultimoFecha)
-                          ->where('hora','=',$ultimoHora)  
-                          ->groupby('indicadorkpi_id')
-                          ->groupby('formato')
-                           ->get() ;
+                            ->where('fecha','=', $ultimoFecha)
+                            ->where('hora','=',$ultimoHora)  
+                            ->groupby('indicadorkpi_id')
+                            ->groupby('formato')
+                            ->get() ;
 
         foreach( $diariokpis as $index ) {
             $kpi = Indicadorkpi::find($index->id);
@@ -155,20 +155,20 @@ class HomeController extends Controller
 
             
             $diariokpis = diariokpi::selectRaw('formato')
-                          ->where('indicadorkpi_id','=',$index->id) 
-                          ->where('fecha','=', $ultimoFecha)
-                          ->where('hora','=',$ultimoHora)  
-                          ->groupby('formato')
-                           ->get() ;
+                            ->where('indicadorkpi_id','=',$index->id) 
+                            ->where('fecha','=', $ultimoFecha)
+                            ->where('hora','=',$ultimoHora)  
+                            ->groupby('formato')
+                            ->get() ;
             $index->datosD = $diariokpis;
         }
 
         $diariokpis = diariokpi::selectRaw('formato')
-                          ->where('indicadorkpi_id','=',$id) 
-                          ->where('fecha','=', $ultimoFecha)
-                          ->where('hora','=',$ultimoHora)  
-                          ->groupby('formato')
-                           ->get() ;
+                            ->where('indicadorkpi_id','=',$id) 
+                            ->where('fecha','=', $ultimoFecha)
+                            ->where('hora','=',$ultimoHora)  
+                            ->groupby('formato')
+                            ->get() ;
         
         
         return view('home', compact( 'kpis','ultimoFecha','ultimoHora','diariokpis'))
@@ -214,11 +214,11 @@ class HomeController extends Controller
         }
 
         $diariokpis = diariokpi::selectRaw('ROUND(AVG(valor)) average, formato')
-                          ->where('indicadorkpi_id','=',$id) 
-                          ->where('fecha','=', $ultimoFecha)
-                          ->where('hora','=',$ultimoHora)  
-                          ->groupby('formato')
-                           ->get() ;
+                            ->where('indicadorkpi_id','=',$id) 
+                            ->where('fecha','=', $ultimoFecha)
+                            ->where('hora','=',$ultimoHora)  
+                            ->groupby('formato')
+                            ->get() ;
                 
          
          
@@ -276,7 +276,7 @@ class HomeController extends Controller
 /* MENSUAL */
        
           $fechasM = mensualkpi::selectRaw(' mes') 
-          ->where('indicadorkpi_id','=',$id) 
+                    ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','ALV') 
                     ->where('mes','>=', $fechaInicioM)
                     ->RangoFecha($lstartDateM,$lendDateM)

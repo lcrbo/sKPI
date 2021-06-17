@@ -44,10 +44,10 @@ class ReporteController extends Controller
     {
         
         $locales = diariokpi::selectRaw('local')
-                          ->where('indicadorkpi_id','=',$id) 
-                          ->where('formato','=',$formato) 
-                          ->groupby('local')
-                           ->get() ;
+                        ->where('indicadorkpi_id','=',$id) 
+                        ->where('formato','=',$formato) 
+                        ->groupby('local')
+                        ->get() ;
         /* return Response::json($locales); */
         
         return $locales;
@@ -92,24 +92,23 @@ class ReporteController extends Controller
         }
 
          $diariokpis = diariokpi::selectRaw('ROUND(AVG(valor)) average, formato')
-                          ->where('indicadorkpi_id','=',$id) 
-                          ->where('formato','=',$lformato) 
-                          ->where('local','=',$llocal) 
-                          ->where('fecha','=', $ultimoFecha)
-                          ->where('hora','=',$ultimoHora)  
-                          ->groupby('formato')
-                           ->get() ; 
+                                ->where('indicadorkpi_id','=',$id) 
+                                ->where('formato','=',$lformato) 
+                                ->where('local','=',$llocal) 
+                                ->where('fecha','=', $ultimoFecha)
+                                ->where('hora','=',$ultimoHora)  
+                                ->groupby('formato')
+                                ->get() ; 
          
                            
         $hoykpis = diariokpi::selectRaw('hora, ROUND(AVG(valor)) valor')
-                ->where('indicadorkpi_id','=',$id) 
-                ->where('formato','=',$lformato) 
-                ->where('local','=',$llocal) 
-                ->where('fecha','=',$ultimoFecha)
-                
-                ->groupby('fecha')
-                ->groupby('hora')
-                ->get()  ;
+                                ->where('indicadorkpi_id','=',$id) 
+                                ->where('formato','=',$lformato) 
+                                ->where('local','=',$llocal) 
+                                ->where('fecha','=',$ultimoFecha)
+                                ->groupby('fecha')
+                                ->groupby('hora')
+                                ->get()  ;
                            
         
         
@@ -160,22 +159,22 @@ class ReporteController extends Controller
 /* diario  */
 
         $fechasD = diariokpi::selectRaw(' hora')
-                ->where('indicadorkpi_id','=',$id) 
-                ->where('formato','=',$lformato) 
-                ->where('local','=',$llocal) 
-                ->where('fecha','=',$ultimoFecha)
-                ->groupby('fecha')
-                ->groupby('hora')
-                ->pluck('hora') ;
+                        ->where('indicadorkpi_id','=',$id) 
+                        ->where('formato','=',$lformato) 
+                        ->where('local','=',$llocal) 
+                        ->where('fecha','=',$ultimoFecha)
+                        ->groupby('fecha')
+                        ->groupby('hora')
+                        ->pluck('hora') ;
                     
         $alvD = diariokpi::selectRaw('ROUND(AVG(valor)) alv')
-                    ->where('indicadorkpi_id','=',$id) 
-                    ->where('formato','=',$lformato) 
-                ->where('local','=',$llocal) 
-                    ->where('fecha','=',$ultimoFecha)
-                    ->groupby('fecha')
-                    ->groupby('hora')
-                    ->pluck('alv') ;
+                        ->where('indicadorkpi_id','=',$id) 
+                        ->where('formato','=',$lformato) 
+                        ->where('local','=',$llocal) 
+                        ->where('fecha','=',$ultimoFecha)
+                        ->groupby('fecha')
+                        ->groupby('hora')
+                        ->pluck('alv') ;
 
        
 
@@ -281,29 +280,28 @@ class ReporteController extends Controller
         }
 
         $diariokpis = diariokpi::selectRaw('ROUND(AVG(valor)) average, formato')
-                          ->where('indicadorkpi_id','=',$id) 
-                          ->where('formato','=',$lformato) 
-                          ->where('local','=',$llocal) 
-                          ->where('fecha','=', $ultimoFecha)
-                          ->where('hora','=',$ultimoHora)  
-                          ->groupby('formato')
-                           ->get() ;
+                                ->where('indicadorkpi_id','=',$id) 
+                                ->where('formato','=',$lformato) 
+                                ->where('local','=',$llocal) 
+                                ->where('fecha','=', $ultimoFecha)
+                                ->where('hora','=',$ultimoHora)  
+                                ->groupby('formato')
+                                ->get() ;
                 
         $hoykpis = diariokpi::selectRaw('hora, ROUND(AVG(valor)) valor')
-                           ->where('indicadorkpi_id','=',$id) 
-                           ->where('formato','=',$lformato) 
-                           ->where('local','=',$llocal) 
-                           ->where('fecha','=',$ultimoFecha)
-                           
-                           ->groupby('fecha')
-                           ->groupby('hora')
-                           ->get()  ;                  
+                                ->where('indicadorkpi_id','=',$id) 
+                                ->where('formato','=',$lformato) 
+                                ->where('local','=',$llocal) 
+                                ->where('fecha','=',$ultimoFecha)
+                                ->groupby('fecha')
+                                ->groupby('hora')
+                                ->get()  ;                  
          
         
    
 /* historico */
 
-       $fechasH = historicokpi::selectRaw('DATE_FORMAT(fecha, "%d-%m-%Y") fecha')
+       $fechasH = historicokpi::selectRaw(' fecha')
                 ->where('indicadorkpi_id','=',$id) 
                 ->where('formato','=',$lformato) 
                 ->where('local','=',$llocal) 
@@ -324,7 +322,7 @@ class ReporteController extends Controller
               
 
 /* MENSUAL */
-        $fechasM = mensualkpi::selectRaw('DATE_FORMAT(mes, "%m-%Y") mes')
+        $fechasM = mensualkpi::selectRaw(' mes')
                 ->where('indicadorkpi_id','=',$id) 
                 ->where('formato','=',$lformato) 
                 ->where('local','=',$llocal)  
@@ -346,7 +344,7 @@ class ReporteController extends Controller
                     
 /* diario  */
 
-        $fechasD = diariokpi::selectRaw('DATE_FORMAT(hora, "%H:%i") hora')
+        $fechasD = diariokpi::selectRaw(' hora')
                 ->where('indicadorkpi_id','=',$id) 
                 ->where('formato','=',$lformato) 
                 ->where('local','=',$llocal) 

@@ -80,10 +80,7 @@ class DiariokpiController extends Controller
                     ->groupby('formato')
                     ->groupby('local')
                     ->orderby('valor','asc')
-                    ->orderby('hora','desc')
                     ->orderby('local','asc')
-                    
-                    
                     ->paginate();
 
         /* $wordCount = count($diariokpis); */
@@ -159,35 +156,21 @@ class DiariokpiController extends Controller
                     ->where('local','=', $local)
                     ->where('indicadorkpi_id','=', $id)
                     ->where('fecha','=', $ultimoFecha )
-                    
                     ->orderby('hora','asc')
-                    
                     ->paginate();
 
                  
         
         /* diario  */
-        if (env("DB_CONNECTION") == "mysql"){
-        /* $fechasD = diariokpi::selectRaw('DATE_FORMAT(hora, "%H:%i") hora')  */
-        $fechasD = diariokpi::where('formato','=', $formato)
-                    ->where('local','=', $local)
-                    ->where('indicadorkpi_id','=',$id) 
-                    ->where('fecha','=',$ultimoFecha)
-                    
-                    ->groupby('hora')
-                    ->pluck('hora') ;
-        }
-        else
-        {
-        $fechasD = diariokpi::selectRaw("to_char(hora, 'HH24:MI') hora")
+      
+         $fechasD = diariokpi::selectRaw(' hora')  
                     ->where('formato','=', $formato)
                     ->where('local','=', $local)
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('fecha','=',$ultimoFecha)
-                    
                     ->groupby('hora')
                     ->pluck('hora') ;
-        }
+        
     
     
         $alvD = diariokpi::selectRaw('ROUND(AVG(valor),2) alv')
@@ -195,9 +178,7 @@ class DiariokpiController extends Controller
                     ->where('local','=', $local)
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('fecha','=',$ultimoFecha)
-                    
                     ->groupby('hora')
-                    
                     ->pluck('alv') ;
     
                    

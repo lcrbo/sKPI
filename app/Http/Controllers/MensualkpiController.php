@@ -32,9 +32,9 @@ class MensualkpiController extends Controller
         $kpi = Indicadorkpi::find(1);
         View::share('kpi', $kpi);
         $locales = diariokpi::selectRaw('local')
-        ->groupby('local')
-         ->get() ;
-View::share('locales', $locales);
+                        ->groupby('local')
+                        ->get() ;
+        View::share('locales', $locales);
         
     }
 
@@ -80,7 +80,6 @@ View::share('locales', $locales);
                         ->groupby('formato')
                         ->groupby('local')
                         ->orderby('valor','asc')
-                        ->orderby('mes','desc')
                         ->orderby('local','asc')
                         ->paginate();
                         ; 
@@ -119,7 +118,6 @@ View::share('locales', $locales);
                     ->RangoFecha($lstartDate,$lendDate)
                     ->where('mes','>=', $fechaInicioM)
                     ->orderby('mes', 'asc')
-                    
                     ->paginate();
 
                  
@@ -145,10 +143,9 @@ View::share('locales', $locales);
                                 ->where('mes','>=', $fechaInicioM)
                                 ->orderby('mes', 'asc')
                                 ->groupby('mes')
-                                
                                 ->pluck('alv') ;
         
-                                $colorALV = 'blue';
+        $colorALV = 'blue';
         $colorM10 = '#FF7733';
         $colorOKM = '#6C147F';
         $colorUNI = 'red';   
