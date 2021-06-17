@@ -235,12 +235,12 @@ class HomeController extends Controller
 
       
          $fechasH = historicokpi::selectRaw('fecha') 
-         ->where('indicadorkpi_id','=',$id) 
-            ->where('formato','=','ALV') 
-            ->where('fecha','>=', $fechaInicioH)
-            ->RangoFecha($lstartDateH,$lendDateH)
-            ->groupby('fecha')
-            ->pluck('fecha') ;
+                ->where('indicadorkpi_id','=',$id) 
+                ->where('formato','=','ALV') 
+                ->where('fecha','>=', $fechaInicioH)
+                ->RangoFecha($lstartDateH,$lendDateH)
+                ->groupby('fecha')
+                ->pluck('fecha') ;
         
         $alvH = historicokpi::selectRaw('ROUND(AVG(valor)) alv')
                 ->where('indicadorkpi_id','=',$id) 
@@ -316,10 +316,9 @@ class HomeController extends Controller
 /* diario  */
   
         $fechasD = diariokpi::selectRaw(' hora') 
-        ->where('indicadorkpi_id','=',$id) 
+                    ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','ALV') 
                     ->where('fecha','=',$ultimoFecha)
-                    ->groupby('fecha')
                     ->groupby('hora')
                     ->pluck('hora') ;
     
@@ -328,7 +327,6 @@ class HomeController extends Controller
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','ALV') 
                     ->where('fecha','=',$ultimoFecha)
-                    ->groupby('fecha')
                     ->groupby('hora')
                     ->pluck('alv') ;
 
@@ -336,21 +334,18 @@ class HomeController extends Controller
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','UNI') 
                     ->where('fecha','=',$ultimoFecha)
-                    ->groupby('fecha')
                     ->groupby('hora')
                     ->pluck('uni') ;
         $m10D = diariokpi::selectRaw('ROUND(AVG(valor)) m10')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','M10') 
                     ->where('fecha','=',$ultimoFecha)
-                    ->groupby('fecha')
                     ->groupby('hora')
                     ->pluck('m10') ;
         $okmD = diariokpi::selectRaw('ROUND(AVG(valor)) okm')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','OKM') 
                     ->where('fecha','=',$ultimoFecha)
-                    ->groupby('fecha')
                     ->groupby('hora')
                     ->pluck('okm') ;
 

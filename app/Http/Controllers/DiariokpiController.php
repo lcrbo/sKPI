@@ -126,7 +126,6 @@ class DiariokpiController extends Controller
                     ->groupby('formato')
                     ->groupby('local')
                     ->orderby('valor','asc')
-                    ->orderby('hora','desc')
                     ->orderby('local','asc')
                     ->paginate();
 
