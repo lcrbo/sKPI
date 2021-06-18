@@ -70,11 +70,11 @@ class DiariokpiController extends Controller
                     ;
 
         $diariokpis = diariokpi::selectRaw('formato, local, indicadorkpi_id, ROUND(AVG(valor)) valor')
-                    ->formato($lformato)
+                    ->formato($formato)
                     ->where('indicadorkpi_id','=', $id)
                     ->where('fecha','=', $ultimoFecha )
                     ->where('hora','=', $ultimoHora )
-                    ->Umbral($lumbralCritico,$kpi->umbral2, $lumbralMedio, $lumbralBajo)
+                   /*  ->Umbral($lumbralCritico,$kpi->umbral2, $lumbralMedio, $lumbralBajo) */
                     ->Local($local)
                     ->groupby('indicadorkpi_id')
                     ->groupby('formato')
@@ -85,7 +85,7 @@ class DiariokpiController extends Controller
 
         /* $wordCount = count($diariokpis); */
         
-         
+      
 
 /*         return view('diariokpi.index', compact('diariokpis','kpi','lformato') ,compact('indicadorkpis', 'ultimoFecha','ultimoHora'))
              ->with('i', (request()->input('page', 1) - 1) * $diariokpis->perPage()) ; */
@@ -113,11 +113,11 @@ class DiariokpiController extends Controller
                     ->max('hora')
                     ;
 
-         $diariokpis = diariokpi::selectRaw('formato, local, indicadorkpi_id, ROUND(AVG(valor)) valor')
+         $diariokpis = diariokpi::selectRaw('formato, local, indicadorkpi_id, AVG(valor) valor')
                     ->formato($lformato) 
                     ->where('indicadorkpi_id','=', $id)
                     ->where('fecha','=', $ultimoFecha )
-                    ->Umbral($lumbralCritico,$kpi->umbral2, $lumbralMedio, $lumbralBajo)
+                   /*  ->Umbral($lumbralCritico,$kpi->umbral2, $lumbralMedio, $lumbralBajo) */
                     ->Local($local)
                     ->groupby('indicadorkpi_id')
                     ->groupby('formato')
@@ -173,7 +173,7 @@ class DiariokpiController extends Controller
         
     
     
-        $alvD = diariokpi::selectRaw('ROUND(AVG(valor)) alv')
+        $alvD = diariokpi::selectRaw('AVG(valor) alv')
                     ->where('formato','=', $formato)
                     ->where('local','=', $local)
                     ->where('indicadorkpi_id','=',$id) 

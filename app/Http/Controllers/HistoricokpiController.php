@@ -66,7 +66,7 @@ class HistoricokpiController extends Controller
                         ->max('fecha')
                         ;   
                     
-        $historicokpis = Historicokpi::selectRaw('formato, local, indicadorkpi_id, ROUND(AVG(valor)) valor')
+        $historicokpis = Historicokpi::selectRaw('formato, local, indicadorkpi_id, AVG(valor) valor')
                     ->formato($lformato)
                     ->where('indicadorkpi_id','=', $id)
                     ->where('fecha','=',$maxfechahist)
@@ -139,7 +139,7 @@ class HistoricokpiController extends Controller
                    
                 
                
-                    $alvD = Historicokpi::selectRaw('ROUND(AVG(valor),2) alv')
+                    $alvD = Historicokpi::selectRaw('AVG(valor) alv')
                                 ->where('indicadorkpi_id','=',$id) 
                                 ->where('formato','=',$formato) 
                                 ->where('local','=', $local)

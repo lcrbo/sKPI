@@ -70,7 +70,7 @@ class MensualkpiController extends Controller
                         ->where('indicadorkpi_id','=',$id) 
                         ->max('mes')
                         ;  
-            $mensualkpis = Mensualkpi::selectRaw('formato, local, indicadorkpi_id, ROUND(AVG(valor)) valor')
+            $mensualkpis = Mensualkpi::selectRaw('formato, local, indicadorkpi_id, AVG(valor) valor')
                         ->formato($lformato)
                         ->where('indicadorkpi_id','=', $id)
                         ->where('mes','=',$maxfechames )
@@ -135,7 +135,7 @@ class MensualkpiController extends Controller
                                 ->pluck('mes') ;
                    
                
-                    $alvD = mensualkpi::selectRaw('ROUND(AVG(valor),2) alv')
+                    $alvD = mensualkpi::selectRaw('AVG(valor) alv')
                                 ->where('indicadorkpi_id','=',$id) 
                                 ->where('formato','=',$formato) 
                                 ->where('local','=', $local)

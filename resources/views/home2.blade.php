@@ -76,7 +76,7 @@
                   <div class="inner">
                     <!-- <h3>{{ $diariokpi->average }} <sup style="font-size: 20px">{{$kpi->formato}}</sup></h3>
                     <h2>{{ $diariokpi->formato }}</h2> -->
-                    <h3>{{ $diariokpi->average }}{{$kpi->formato}}</h3>
+                    <h3>{{ ROUND($diariokpi->average,0) }}{{$kpi->formato}}</h3>
                     <h2>&nbsp;</h2>
                   </div>
                   <div class="icon">
@@ -85,12 +85,12 @@
                       <img src="{{ asset('/img/'.$diariokpi->formato.'-gris.png') }}" alt="" class="rounded mx-auto d-block" width="100" height="100" style="opacity: .8">
                     </i>
                   </div>
-                  <div class="small-box-footer-center text-center">
+                  <!-- <div class="small-box-footer-center text-center">
                     <button type="button" class="small-box-footer-center" data_value="{{$diariokpi->formato }}" data-toggle="modal" data-target="#modal-diario-{{$diariokpi->formato}}">
                       Detalle <i class="fas fa-arrow-circle-right"></i>
                     </button>
-                  </div>
-                  <!-- <a href="{{ route('diariokpis.index',[ 'kpiid'=>$kpi->id , 'formato'=>$diariokpi->formato]) }}" class="small-box-footer" >Detalle <i class="fas fa-arrow-circle-right" ></i></a> -->
+                  </div> -->
+                   <a href="{{ route('diariokpis.index',[ 'kpiid'=>$kpi->id , 'formato'=>$diariokpi->formato]) }}" class="small-box-footer" >Detalle <i class="fas fa-arrow-circle-right" ></i></a> 
 
                 </div>
                 @endif
@@ -168,7 +168,7 @@
                       <figure class="highcharts-figure">
                         <div id="containerD"></div>
                       </figure>
-                      {{$alvD}}
+                      
                       @endif
                     </div>
                   </div>
@@ -940,9 +940,12 @@
 
 
           tooltip: {
+            valueDecimals: 2,
             valueSuffix: ' {{$kpi->formato}}',
             split: true
           },
+
+          
 
           legend: {
             layout: 'vertical',
@@ -962,7 +965,7 @@
               marker: {
                 enabled: false
               },
-
+                 
 
             }
           },
@@ -1111,6 +1114,7 @@
             max: 100,
           },
           tooltip: {
+            valueDecimals: 2,
             valueSuffix: ' {{$kpi->formato}}',
             split: true
           },
@@ -1281,6 +1285,7 @@
             max: 100,
           },
           tooltip: {
+            valueDecimals: 2,
             valueSuffix: ' {{$kpi->formato}}',
             split: true
           },

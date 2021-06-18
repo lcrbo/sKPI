@@ -213,7 +213,7 @@ class HomeController extends Controller
             return view('error', compact( 'kpi'));
         }
 
-        $diariokpis = diariokpi::selectRaw('ROUND(AVG(valor)) average, formato')
+        $diariokpis = diariokpi::selectRaw('AVG(valor) average, formato')
                             ->where('indicadorkpi_id','=',$id) 
                             ->where('fecha','=', $ultimoFecha)
                             ->where('hora','=',$ultimoHora)  
@@ -226,14 +226,7 @@ class HomeController extends Controller
    
 /* historico */
 
-      /*   $c3 = DB::select('CALL historico_grafico(?)',array($id));
-
-        $res[] = ['fecha', 'ALV', 'UNI', 'M10','OKM'];
-        foreach ($c3 as $key => $val) {
-                    $res[++$key] = [$val->fecha, $val->alv, $val->uni, $val->m10, $val->okm];
-        } */
-
-      
+     
          $fechasH = historicokpi::selectRaw('fecha') 
                 ->where('indicadorkpi_id','=',$id) 
                 ->where('formato','=','ALV') 
@@ -242,7 +235,7 @@ class HomeController extends Controller
                 ->groupby('fecha')
                 ->pluck('fecha') ;
         
-        $alvH = historicokpi::selectRaw('ROUND(AVG(valor)) alv')
+        $alvH = historicokpi::selectRaw('AVG(valor) alv')
                 ->where('indicadorkpi_id','=',$id) 
                 ->where('formato','=','ALV') 
                 ->where('fecha','>=', $fechaInicioH)
@@ -250,21 +243,21 @@ class HomeController extends Controller
                 ->groupby('fecha')
                 ->pluck('alv') ;
 
-        $uniH = historicokpi::selectRaw('ROUND(AVG(valor)) uni')
+        $uniH = historicokpi::selectRaw('AVG(valor) uni')
                 ->where('indicadorkpi_id','=',$id) 
                 ->where('formato','=','UNI') 
                 ->where('fecha','>=', $fechaInicioH)
                 ->RangoFecha($lstartDateH,$lendDateH)
                 ->groupby('fecha')
                 ->pluck('uni') ;
-        $m10H = historicokpi::selectRaw('ROUND(AVG(valor)) m10')
+        $m10H = historicokpi::selectRaw('AVG(valor) m10')
                 ->where('indicadorkpi_id','=',$id) 
                 ->where('formato','=','M10') 
                 ->where('fecha','>=', $fechaInicioH)
                 ->RangoFecha($lstartDateH,$lendDateH)
                 ->groupby('fecha')
                 ->pluck('m10') ;
-        $okmH = historicokpi::selectRaw('ROUND(AVG(valor)) okm')
+        $okmH = historicokpi::selectRaw('AVG(valor) okm')
                 ->where('indicadorkpi_id','=',$id) 
                 ->where('formato','=','OKM') 
                 ->where('fecha','>=', $fechaInicioH)
@@ -283,7 +276,7 @@ class HomeController extends Controller
                     ->groupby('mes')
                     ->pluck('mes') ;
         
-        $alvM = mensualkpi::selectRaw('ROUND(AVG(valor)) alv')
+        $alvM = mensualkpi::selectRaw('AVG(valor) alv')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','ALV') 
                     ->where('mes','>=', $fechaInicioM)
@@ -291,21 +284,21 @@ class HomeController extends Controller
                     ->groupby('mes')
                     ->pluck('alv') ;
 
-        $uniM = mensualkpi::selectRaw('ROUND(AVG(valor)) uni')
+        $uniM = mensualkpi::selectRaw('AVG(valor) uni')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','UNI') 
                     ->where('mes','>=', $fechaInicioM)
                     ->RangoFecha($lstartDateM,$lendDateM)
                     ->groupby('mes')
                     ->pluck('uni') ;
-        $m10M = mensualkpi::selectRaw('ROUND(AVG(valor)) m10')
+        $m10M = mensualkpi::selectRaw('AVG(valor) m10')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','M10') 
                     ->where('mes','>=', $fechaInicioM)
                     ->RangoFecha($lstartDateM,$lendDateM)
                     ->groupby('mes')
                     ->pluck('m10') ;
-        $okmM = mensualkpi::selectRaw('ROUND(AVG(valor)) okm')
+        $okmM = mensualkpi::selectRaw('AVG(valor) okm')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','OKM') 
                     ->where('mes','>=', $fechaInicioM)
@@ -360,7 +353,7 @@ class HomeController extends Controller
         $colorOKM = '#6C147F';
         $colorUNI = 'red';
         
-        dd($alvD);
+        
         return view('home2', 
                 compact('kpi',
                 'fechasD','alvD','uniD','m10D','okmD',
