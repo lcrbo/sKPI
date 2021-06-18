@@ -77,10 +77,10 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
-            'options' => array(
+            'options' => [
                 PDO::ATTR_STRINGIFY_FETCHES => false,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            )
+                PDO::ATTR_EMULATE_PREPARES => true
+            ]
         ],
 
         'sqlsrv' => [
