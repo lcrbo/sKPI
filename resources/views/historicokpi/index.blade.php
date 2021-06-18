@@ -131,7 +131,7 @@
                           <a href="{{ route('historicokpis.modal', [ 'kpiid'=>$historicokpi->indicadorkpi_id , 'formato'=>$historicokpi->formato , 'local'=>$historicokpi->local ] ) }}" > {{ $historicokpi->local }} </a>
                         </td>
                         <td>
-                          <span class=" bg-warning">{{ $historicokpi->valor }} {{ $kpi->formato }}</span>
+                          <span class=" bg-warning">{{ round($historicokpi->valor,2) }} {{ $kpi->formato }}</span>
                           <div class="progress progress-xs" style="height:5px">
                             <div class="progress-bar bg-warning" style="width: {{ $historicokpi->valor }}{{ $kpi->formato }}"></div>
                           </div>
@@ -144,7 +144,7 @@
                         <a href="{{ route('historicokpis.modal', [ 'kpiid'=>$historicokpi->indicadorkpi_id , 'formato'=>$lformato , 'local'=>$historicokpi->local ] ) }}" > {{ $historicokpi->local }} </a>
                         </td>
                         <td>
-                          <span class=" bg-success">{{ $historicokpi->valor }} {{ $kpi->formato }}</span>
+                          <span class=" bg-success">{{ round($historicokpi->valor,2) }} {{ $kpi->formato }}</span>
                           <div class="progress progress-xs" style="height:5px">
                             <div class="progress-bar bg-success" style="width: {{ $historicokpi->valor }}{{ $kpi->formato }}"></div>
                           </div>

@@ -33,9 +33,9 @@ class Diariokpi extends Model
 
     protected $perPage = 10;
 
-    protected $casts = [
+ /*    protected $casts = [
       'valor' => 'numeric'
-    ];
+    ]; */
     /**
      * Attributes that should be mass-assignable.
      *

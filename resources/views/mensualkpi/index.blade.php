@@ -138,7 +138,7 @@
                         <a href="{{ route('mensualkpis.modal', [ 'kpiid'=>$mensualkpi->indicadorkpi_id , 'formato'=>$lformato , 'local'=>$mensualkpi->local ] ) }}" > {{ $mensualkpi->local }} </a>
                         </td>
                         <td>
-                          <span class=" bg-warning">{{ $mensualkpi->valor }} {{ $kpi->formato }}</span>
+                          <span class=" bg-warning">{{ round($mensualkpi->valor,2) }} {{ $kpi->formato }}</span>
                           <div class="progress progress-xs" style="height:5px">
                             <div class="progress-bar bg-warning" style="width: {{ $mensualkpi->valor }}{{ $kpi->formato }}"></div>
                           </div>
@@ -150,7 +150,7 @@
                         <a href="{{ route('mensualkpis.modal', [ 'kpiid'=>$mensualkpi->indicadorkpi_id , 'formato'=>$lformato , 'local'=>$mensualkpi->local ] ) }}" > {{ $mensualkpi->local }} </a>
                         </td>
                         <td>
-                          <span class=" bg-success">{{ $mensualkpi->valor }} {{ $kpi->formato }}</span>
+                          <span class=" bg-success">{{ round($mensualkpi->valor,2) }} {{ $kpi->formato }}</span>
                           <div class="progress progress-xs" style="height:5px">
                             <div class="progress-bar bg-success" style="width: {{ $mensualkpi->valor }}{{ $kpi->formato }}"></div>
                           </div>

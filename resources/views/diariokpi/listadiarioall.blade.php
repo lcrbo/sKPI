@@ -120,7 +120,7 @@
                         <a href="{{ route('diariokpis.modal', [ 'kpiid'=>$diariokpi->indicadorkpi_id , 'formato'=>$diariokpi->formato , 'local'=>$diariokpi->local ] ) }}" > {{ $diariokpi->local }} </a>
                         </td>
                         <td>
-                          <span class=" bg-danger">{{ $diariokpi->valor }} {{ $kpi->formato }}</span>
+                          <span class=" bg-danger">{{ round($diariokpi->valor,2) }} {{ $kpi->formato }}</span>
                           <div class="progress progress-xs" style="height:5px">
                             <div class="progress-bar bg-danger" style="width: {{ $diariokpi->valor }}{{ $kpi->formato }}"></div>
                           </div>
@@ -133,7 +133,7 @@
                         <a href="{{ route('diariokpis.modal', [ 'kpiid'=>$diariokpi->indicadorkpi_id , 'formato'=>$diariokpi->formato , 'local'=>$diariokpi->local ] ) }}" > {{ $diariokpi->local }} </a>
                         </td>
                         <td>
-                          <span class=" bg-warning">{{ $diariokpi->valor }} {{ $kpi->formato }}</span>
+                          <span class=" bg-warning">{{ round($diariokpi->valor,2) }} {{ $kpi->formato }}</span>
                           <div class="progress progress-xs" style="height:5px">
                             <div class="progress-bar bg-warning" style="width: {{ $diariokpi->valor }}{{ $kpi->formato }}"></div>
                           </div>
@@ -144,7 +144,7 @@
                         <a href="{{ route('diariokpis.modal', [ 'kpiid'=>$diariokpi->indicadorkpi_id , 'formato'=>$diariokpi->formato , 'local'=>$diariokpi->local ] ) }}" > {{ $diariokpi->local }} </a>
                         </td>
                         <td>
-                          <span class=" bg-success">{{ $diariokpi->valor }} {{ $kpi->formato }}</span>
+                          <span class=" bg-success">{{ round($diariokpi->valor,2) }} {{ $kpi->formato }}</span>
                           <div class="progress progress-xs" style="height:5px">
                             <div class="progress-bar bg-success" style="width: {{ $diariokpi->valor }}{{ $kpi->formato }}"></div>
                           </div>

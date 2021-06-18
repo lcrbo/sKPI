@@ -305,7 +305,7 @@
 
       <!-- modal -->
       <div class="modal fade" id="modal-diario">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lm">
           <form action="{{ route('diariokpis.listadiarioall', $kpi->id) }}" method="GET">
             <div class="modal-content">
               <div class="card">
@@ -321,7 +321,7 @@
               </div>
               <div class="row">
                 <!-- left column -->
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="card">
                     <div class="card-header border-0">
                       <h3 class="card-title">Seleccionar un Formato</h3>
@@ -352,7 +352,7 @@
                   </div>
                 </div>
                 <!-- derecha column -->
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <div class="card">
                     <div class="card-header border-0">
                       <h3 class="card-title">
@@ -374,15 +374,15 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
 
 
               <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="far fa-window-close"></i> Cerrar </button>
                 <button type="submit" class="btn btn-primary">
+                <i class="fas fa-filter"></i>
                   Filtrar
-
                 </button>
               </div>
 
@@ -397,7 +397,7 @@
 
       <!-- modal -->
       <div class="modal fade" id="modal-historico">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lm">
           <form action="{{ route('historicokpis.index', $kpi->id) }}" method="GET">
             <div class="modal-content">
               <div class="card">
@@ -413,7 +413,7 @@
               </div>
               <div class="row">
                 <!-- left column -->
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="card">
                     <div class="card-header border-0">
                       <h3 class="card-title">Seleccionar un Formato</h3>
@@ -444,7 +444,7 @@
                   </div>
                 </div>
                 <!-- derecha column -->
-                <div class="col-md-6">
+               <!--  <div class="col-md-6">
                   <div class="card">
                     <div class="card-header border-0">
                       <h3 class="card-title">
@@ -466,13 +466,13 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="far fa-window-close"></i> Cerrar </button>
                 <button type="submit" class="btn btn-primary">
+                <i class="fas fa-filter"></i>
                   Filtrar
-
                 </button>
               </div>
 
@@ -486,7 +486,7 @@
 
       <!-- modal -->
       <div class="modal fade" id="modal-mensual">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lm">
           <form action="{{ route('mensualkpis.index', $kpi->id) }}" method="GET">
             <div class="modal-content">
               <div class="card">
@@ -502,7 +502,7 @@
               </div>
               <div class="row">
                 <!-- left column -->
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="card">
                     <div class="card-header border-0">
                       <h3 class="card-title">Seleccionar un Formato</h3>
@@ -533,7 +533,7 @@
                   </div>
                 </div>
                 <!-- derecha column -->
-                <div class="col-md-6">
+               <!--  <div class="col-md-6">
                   <div class="card">
                     <div class="card-header border-0">
                       <h3 class="card-title">
@@ -555,13 +555,13 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar </button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="far fa-window-close"></i> Cerrar </button>
                 <button type="submit" class="btn btn-primary">
+                <i class="fas fa-filter"></i>
                   Filtrar
-
                 </button>
               </div>
 
