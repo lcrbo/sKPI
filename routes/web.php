@@ -34,15 +34,19 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::resource('products', ProductController::class);
+    
+  
 });
+
+Route::middleware(['auth', 'verified'])->get('users.password/{id}', [UserController::class, 'editPassword'])->name('users.password');
+Route::middleware(['auth', 'verified'])->patch('users.updatePassword/{id}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
+
 
 Route::middleware(['auth', 'verified'])->get('users', [UserController::class, 'index'])->name('users.index');
 Route::middleware(['auth', 'verified'])->get('roles', [RoleController::class, 'index'])->name('roles.index');
 
 
 /*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');*/
-Route::get('/balanza', [App\Http\Controllers\balanzaController::class, 'index'])->name('balanza');
 Route::get('/kpi2', [App\Http\Controllers\HomeController::class, 'index'])->name('kpi2');
 Route::middleware(['auth', 'verified'])->get('kpi/{id}', [HomeController::class, 'index2'])->name('kpi');
 Route::middleware(['auth', 'verified'])->get('home', [HomeController::class, 'index'])->name('home');

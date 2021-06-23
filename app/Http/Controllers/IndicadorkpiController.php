@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Diariokpi;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class IndicadorkpiController
@@ -26,7 +27,18 @@ class IndicadorkpiController extends Controller
         $locales = diariokpi::selectRaw('local')
         ->groupby('local')
          ->get() ;
-View::share('locales', $locales);
+        View::share('locales', $locales);
+
+    $visibleALV = 1;
+    $visibleM10 = 1;
+    $visibleOKM = 1;
+    $visibleUNI = 1; 
+
+
+View::share('visibleALV', $visibleALV);
+View::share('visibleM10', $visibleM10);
+View::share('visibleOKM', $visibleOKM);
+View::share('visibleUNI', $visibleUNI);
         
     }
 
@@ -41,6 +53,9 @@ View::share('locales', $locales);
         $indicadorkpis = Indicadorkpi::indicador($lnombre)
                         ->paginate();
         
+        $user = Auth::user();
+        View::share('user', $user);
+
         return view('indicadorkpi.index', compact('indicadorkpis'))
             ->with('i', (request()->input('page', 1) - 1) * $indicadorkpis->perPage());
     }
@@ -54,6 +69,10 @@ View::share('locales', $locales);
     {
         $indicadorkpis = Indicadorkpi::paginate();
         $indicadorkpi = new Indicadorkpi();
+
+        $user = Auth::user();
+        View::share('user', $user);
+        
         return view('indicadorkpi.create', compact('indicadorkpi','indicadorkpis'));
     }
 
@@ -98,6 +117,9 @@ View::share('locales', $locales);
         $indicadorkpi = Indicadorkpi::find($id);
         $indicadorkpis = Indicadorkpi::paginate();
 
+        $user = Auth::user();
+        View::share('user', $user);
+        
         return view('indicadorkpi.edit', compact('indicadorkpi','indicadorkpis') );
     }
 

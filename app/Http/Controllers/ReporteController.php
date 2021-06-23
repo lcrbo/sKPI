@@ -7,6 +7,7 @@ use App\Models\Diariokpi;
 use App\Models\Mensualkpi;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,19 +38,51 @@ class ReporteController extends Controller
 
         
         View::share('locales', $locales);
+        
+        
+        $visibleALV = 0;
+        $visibleM10 = 0;
+        $visibleOKM = 0;
+        $visibleUNI = 0;
+       /*  $user = Auth::user();
+        if (($user->formato == 'ALL') || ($user->formato == null)){
+            $visibleALV = 1;
+            $visibleM10 = 1;
+            $visibleOKM = 1;
+            $visibleUNI = 1; 
+        }
+        if ($user->formato == 'ALV') {
+            $visibleALV = 1;
+        }
+        if ($user->formato == 'M10') {
+            $visibleM10 = 1;
+        }
+
+        if ($user->formato == 'OKM') {
+            $visibleOKM = 1;
+        }
+        if ($user->formato == 'UNI') {
+            $visibleUNI = 1;
+        } */
+        View::share('visibleALV', $visibleALV);
+        View::share('visibleM10', $visibleM10);
+        View::share('visibleOKM', $visibleOKM);
+        View::share('visibleUNI', $visibleUNI);
     }
 
 
     public function localesbyid($id,$formato)
     {
-        
+        $user = Auth::user();
+        View::share('user', $user);
+
         $locales = diariokpi::selectRaw('local')
                         ->where('indicadorkpi_id','=',$id) 
                         ->where('formato','=',$formato) 
                         ->groupby('local')
                         ->get() ;
         /* return Response::json($locales); */
-        
+        dd($locales);
         return $locales;
     }
 
@@ -231,6 +264,10 @@ class ReporteController extends Controller
 
         return $pdf->download('reportelocal.pdf'); 
  */
+
+        $user = Auth::user();
+        View::share('user', $user);
+
          return view('reportes.index', 
                 compact('kpi',
                 'fechasD','alvD',
@@ -382,7 +419,8 @@ class ReporteController extends Controller
         if ($lformato=='UNI')
                 $color = $colorUNI;
    
-               
+        $user = Auth::user();
+        View::share('user', $user);      
        
 
          return view('reportes.index', 

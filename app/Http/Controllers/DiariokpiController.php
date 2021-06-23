@@ -12,6 +12,7 @@ use App\Exports\DiariokpisExport;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 
     
@@ -39,7 +40,34 @@ class DiariokpiController extends Controller
                     ->groupby('local')
                     ->get() ;
         View::share('locales', $locales);
-        
+        /* $user = Auth::user(); */
+        $visibleALV = 0;
+        $visibleM10 = 0;
+        $visibleOKM = 0;
+        $visibleUNI = 0;
+        /* if (($user->formato == 'ALL') || ($user->formato == null)){
+            $visibleALV = 1;
+            $visibleM10 = 1;
+            $visibleOKM = 1;
+            $visibleUNI = 1; 
+        }
+        if ($user->formato == 'ALV') {
+            $visibleALV = 1;
+        }
+        if ($user->formato == 'M10') {
+            $visibleM10 = 1;
+        }
+
+        if ($user->formato == 'OKM') {
+            $visibleOKM = 1;
+        }
+        if ($user->formato == 'UNI') {
+            $visibleUNI = 1;
+        } */
+        View::share('visibleALV', $visibleALV);
+        View::share('visibleM10', $visibleM10);
+        View::share('visibleOKM', $visibleOKM);
+        View::share('visibleUNI', $visibleUNI);
     }
 
     /**
@@ -85,7 +113,8 @@ class DiariokpiController extends Controller
 
         /* $wordCount = count($diariokpis); */
         
-      
+        $user = Auth::user();
+        View::share('user', $user);
 
 /*         return view('diariokpi.index', compact('diariokpis','kpi','lformato') ,compact('indicadorkpis', 'ultimoFecha','ultimoHora'))
              ->with('i', (request()->input('page', 1) - 1) * $diariokpis->perPage()) ; */
@@ -126,7 +155,8 @@ class DiariokpiController extends Controller
                     ->orderby('local','asc')
                     ->paginate();
 
-
+        $user = Auth::user();
+        View::share('user', $user);
         
                         
         /*$formato =  $diariokpis::first()->formato; */ 
@@ -182,7 +212,8 @@ class DiariokpiController extends Controller
                     ->pluck('alv') ;
     
                    
-            
+        $user = Auth::user();
+        View::share('user', $user);    
             
             
         $colorALV = 'blue';

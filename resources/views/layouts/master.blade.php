@@ -17,9 +17,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 
-  <!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
-
-
+  
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
   <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -27,12 +26,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  
-<!-- CHART HIGHCHARTS -->
-  <link rel="stylesheet" href="{{ asset('css/highcharts.css') }}">
-
- <!--  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
-
+  <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ 
   {{ $stylesheet }}
    
 </head>
@@ -106,12 +101,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('users.password', $user->id) }}"
+                                       >
+                                        {{ __('Cambiar Contraseña') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -322,30 +320,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <div class="card-body">
                 <div class="form-group">
+                @if ( Auth::user()->getRoleNames()[0] == "PorUnLocal")
+                  <div class="form-check">
+                          <input class="form-check-input" type="radio" name="formato" id="formato{{$user->formato}}" 
+                           checked
+                            value="{{$user->formato}}">
+                          <label class="form-check-label">{{$user->formato}}</label>
+                      </div>
+                @else
+                @if (( $user->formato == 'ALL')  || ( $user->formato == 'ALV') )
                       <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" id="formatoALV" 
-                            <?php if (isset($formato) && $formato=="ALV") echo "checked";?>
+                           <?php if (isset($formato) && $formato=="ALV") echo "checked";?> 
                             value="ALV">
                           <label class="form-check-label">Alvi</label>
                       </div>
+                @endif
+                @if (( $user->formato == 'ALL')  || ( $user->formato == 'M10') )
                       <div class="form-check">
                         <input  class="form-check-input" type="radio"  name="formato"   id="formatoM10"
                         <?php if (isset($formato) && $formato=="M10") echo "checked";?>
                         value="M10">
                         <label class="form-check-label">Mayorista 10</label>
                       </div>
+                 @endif     
+                 @if (( $user->formato == 'ALL')  || ( $user->formato == 'OKM') )
                         <div class="form-check">
                           <input  class="form-check-input" type="radio" name="formato"   id="formatoOKM"
                           <?php if (isset($formato) && $formato=="OKM") echo "checked";?>
-                          value="OKM">
+                          value="OKM"> 
                           <label class="form-check-label">OKMarket</label>
                         </div>
+                   @endif
+                   @if (( $user->formato == 'ALL')  || ( $user->formato == 'UNI') )     
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato"  id="formatoUNI"
                           <?php if (isset($formato) && $formato=="UNI") echo "checked";?>
-                          value="UNI">
+                          value="UNI"> 
                           <label class="form-check-label">Unimarc</label>
                         </div>
+                  @endif
+                  @endif     
                         
                 </div>
               </div>
@@ -359,11 +374,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
               
               <label for="combo" >Seleccionar un local</label>
                 <div class="form-group">
-                        
-                        <select name="local" id="localesbyid" class="shadow-sm focus:ring-indigo-500 focus:border-red-500 mt-1 block w-full sm:text-sm border-red-300 rounded-md" >
-                          <option value="">--- Seleccione  ---</option>
+                
+                @if ( Auth::user()->getRoleNames()[0] == "PorUnLocal")  
+                      <select name="local" id="localesbyid" class="shadow-sm focus:ring-indigo-500 focus:border-red-500 mt-1 block w-full sm:text-sm border-red-300 rounded-md" >
+                          <option value="{{$user->local}}">{{$user->local}}</option>
                           
                         </select>
+                @else    
+                <x-label>
+                    <x-slot name="nombre">Local</x-slot> 
+                    <x-slot name="campo">local</x-slot> 
+                    <x-slot name="valor">{{old('local',$user->local)}}</x-slot> 
+                </x-label>
+
+                   <!--      <select name="local" id="localesbyid" class="shadow-sm focus:ring-indigo-500 focus:border-red-500 mt-1 block w-full sm:text-sm border-red-300 rounded-md" >
+                          <option value="">--- Seleccione  ---</option>
+                          
+                        </select> -->
+                @endif
                 </div>
             </div>
             <div class="card-body">
@@ -389,9 +417,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script> -->
+<!--  <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>  -->
 
-<script>
+
+  
+
+
+    
+   <script type="text/javascript">
 
 $('#formatoALV').click(clickSelecionFormato );
 $('#formatoM10').click(clickSelecionFormato );
@@ -403,6 +436,7 @@ function clickSelecionFormato() {
   var formato_id = $(this).val(); 
  
   var cod = document.getElementById("idkpi").value;
+
 
   // ajax
   $.get('/localesbyid/'+cod+'/'+formato_id, function(data) {
@@ -422,10 +456,8 @@ function clickSelecionFormato() {
 
 
 </script>
+   
+{{ $scriptLocal}}
 
-
-
-
-  {{ $scriptLocal}}
 </body>
 </html>

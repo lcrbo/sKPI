@@ -3,32 +3,6 @@
 <x-slot name="stylesheet">
 
 
-<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-
-
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Tempusdominus Bootstrap 4 -->
-<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<!-- iCheck -->
-<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<!-- JQVMap -->
-<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="dist/css/adminlte.min.css">
-<!-- overlayScrollbars -->
-<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<!-- Daterange picker -->
-<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-<!-- summernote -->
-<link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-
-<!-- daterange picker -->
-<link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
 
 </x-slot>
 
@@ -36,39 +10,11 @@
 
 <x-slot name="slot">
 
-
-<!-- TITULO -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-3">
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-left">
-              <li>
-                <h1 class="m-0">Usuarios </h1>
-              </li>
-              <li><small class="small-box-footer">&nbsp;&nbsp;&nbsp; </small></li>
-            </ol>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-              <li class="breadcrumb-item active">Usuarios </li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
+<x-contenttitulo> Usuarios
+  <x-slot name="fechaActualizacion"> </x-slot>
+</x-contenttitulo>
 
 
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        
-        <div class="pull-right">
-            <a class="btn btn-success btn-sm" href="{{ route('users.create') }}">
-            <i class="far fa-plus-square"></i> Agregar</a>
-        </div>
-    </div>
-</div>
 
 
 @if ($message = Session::get('success'))
@@ -77,51 +23,111 @@
 </div>
 @endif
 
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
 
-<table class="table table-bordered">
- <tr>
-  
-   <th>Nombre</th>
-   <th>Correo</th>
-   <th>Rol</th>
-   <th width="280px"></th>
- </tr>
- @foreach ($data as $key => $user)
-  <tr>
-    
-    <td>{{ $user->name }}</td>
-    <td>{{ $user->email }}</td>
-    <td>
-      @if(!empty($user->getRoleNames()))
-        @foreach($user->getRoleNames() as $v)
-           <label class="badge badge-success">{{ $v }}</label>
-        @endforeach
-      @endif
-    </td>
-    <td>
-        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-            @csrf
-            @method('delete')
-            <a class="btn btn-info btn-sm" href="{{ route('users.edit',$user->id) }}" role="button">
-                <i class="fas fa-pencil-alt"></i>
-                Editar
-            </a>
-            <button type="submit" onclick="return confirm('Estas seguro de eliminar ')" class="btn btn-danger btn-sm">
-                <i class="fas fa-trash"></i>
-                Eliminar
-            </button>
-        </form>
+            <!-- /.card -->
 
-     
-      
-       
-    </td>
-  </tr>
- @endforeach
-</table>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Usuarios</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="float-right">
 
 
-{!! $data->render() !!}
+                  
+                    <div class="input-group small">
+                      
+                      <a>&nbsp;&nbsp;&nbsp;</a>
+                      <a class="btn btn-success btn-sm" href="{{ route('users.create') }}" role="button">
+                        <i class="far fa-plus-square"></i>
+                        Agregar
+                      </a>
+                    </div>
+
+                 
+                  <a>&nbsp;&nbsp;&nbsp;</a>
+
+                </div>
+                <table id="mensualcontrolxxx" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Usuario [nombre - correo - rol]</th>
+                      <th style="width: 20%">
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  @foreach ($data as $key => $user)
+                    <tr>
+                      @if ( $data != null )
+                      <td>
+
+                        <p class="text-black-300 font-bold">
+                          <a class="text-blue-500 font-bold">
+                          {{ $user->name }} </a>
+                          {{ $user->email }}
+                          <a class="text-blue-300 font-bold">
+                          @if(!empty($user->getRoleNames()))
+                            @foreach($user->getRoleNames() as $v)
+                            [{{ $v}}]
+                              
+                            @endforeach
+                          @endif
+                            </a>
+                        </p>
+                        
+                      </td>
+                      <td class="project-actions text-right">
+
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                          @csrf
+                          @method('delete')
+                          <a class="btn btn-info btn-sm" href="{{ route('users.edit',$user->id) }}" role="button">
+                            <i class="fas fa-pencil-alt"></i>
+                            Editar
+                          </a>
+                          <button type="submit" onclick="return confirm('Estas seguro de eliminar ')" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                            Eliminar
+                          </button>
+                        </form>
+
+                      </td>
+                      @endif
+                    </tr>
+                    @endforeach
+
+
+                  </tbody>
+                  <tfoot>
+
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+            <!-- /.card -->
+          </div>
+          {!! $data->render() !!}
+
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+
+
+
+    </section>
+
+
+
 
             <!-- jQuery -->
             <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>

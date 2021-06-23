@@ -5,7 +5,7 @@ use App\Models\Indicadorkpi;
 use App\Models\Historicokpi;
 use App\Models\Diariokpi;
 use App\Models\Mensualkpi;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -34,7 +34,21 @@ class HomeController extends Controller
                             ->groupby('local')
                             ->get() ;
         View::share('locales', $locales);
-        
+
+       
+
+            $visibleALV = 1;
+            $visibleM10 = 1;
+            $visibleOKM = 1;
+            $visibleUNI = 1; 
+
+        View::share('visibleALV', $visibleALV);
+        View::share('visibleM10', $visibleM10);
+        View::share('visibleOKM', $visibleOKM);
+        View::share('visibleUNI', $visibleUNI);
+
+        $user = Auth::user();
+        View::share('user', $user);
     }
 
     
@@ -170,6 +184,9 @@ class HomeController extends Controller
                             ->groupby('formato')
                             ->get() ;
         
+        $user = Auth::user();
+        View::share('user', $user);
+        
         
         return view('home', compact( 'kpis','ultimoFecha','ultimoHora','diariokpis'))
            ;
@@ -216,13 +233,13 @@ class HomeController extends Controller
         $diariokpis = diariokpi::selectRaw('AVG(valor) average, formato')
                             ->where('indicadorkpi_id','=',$id) 
                             ->where('fecha','=', $ultimoFecha)
-                            ->where('hora','=',$ultimoHora)  
+                            ->where('hora','=',$ultimoHora) 
                             ->groupby('formato')
                             ->get() ;
                 
          
-         
                            
+
    
 /* historico */
 
@@ -329,6 +346,8 @@ class HomeController extends Controller
                     ->where('fecha','=',$ultimoFecha)
                     ->groupby('hora')
                     ->pluck('uni') ;
+        
+
         $m10D = diariokpi::selectRaw('AVG(valor) m10')
                     ->where('indicadorkpi_id','=',$id) 
                     ->where('formato','=','M10') 
@@ -343,24 +362,125 @@ class HomeController extends Controller
                     ->pluck('okm') ;
 
 
-        $alvaverage = $diariokpis[0]->average;
-        $m10average = $diariokpis[1]->average;
-        $okmaverage = $diariokpis[2]->average;
-        $uniaverage = $diariokpis[3]->average;
+     
 
         $colorALV = 'blue';
         $colorM10 = '#FF7733';
         $colorOKM = '#6C147F';
         $colorUNI = 'red';
         
+       
+        $nombreALV = 'AlV';
+        $nombreM10 = 'M10';
+        $nombreOKM = 'OKM';
+        $nombreUNI = 'UNI';
+
+
+        $user = Auth::user();
+        View::share('user', $user);
         
+        if (($user->formato == 'ALL') || ($user->formato == null)){
+            $visibleALV = 1;
+            $visibleM10 = 1;
+            $visibleOKM = 1;
+            $visibleUNI = 1; 
+        }
+        if ($user->formato == 'ALV') {
+            $visibleALV = 1;
+            
+            $visibleM10 = 0;
+            $m10D = null;
+            $m10H = null;
+            $m10M = null;
+            
+            $visibleOKM = 0;
+            $okmD = null;
+            $okmH = null;
+            $okmM = null;
+            
+            $visibleUNI = 0;
+            $uniD= null;
+            $uniH = null;
+            $uniM = null;
+            
+        }
+        if ($user->formato == 'M10') {
+            $visibleALV = 0;
+            $alvD = null;
+            $alvH = null;
+            $alvM = null;
+            
+            $visibleM10 = 1;
+
+            
+            $visibleOKM = 0;
+            $okmD = null;
+            $okmH = null;
+            $okmM = null;
+            
+            $visibleUNI = 0;
+            $uniD= null;
+            $uniH = null;
+            $uniM = null;
+            
+        }
+
+        if ($user->formato == 'OKM') {
+            $visibleALV = 0;
+            $alvD = null;
+            $alvH = null;
+            $alvM = null;
+            
+            $visibleM10 = 0;
+            $m10D = null;
+            $m10H = null;
+            $m10M = null;
+            
+            $visibleOKM = 1;
+
+            
+            $visibleUNI = 0;
+            $uniD= null;
+            $uniH = null;
+            $uniM = null;
+            
+        }
+        if ($user->formato == 'UNI') {
+            $visibleALV = 0;
+            $alvD = null;
+            $alvH = null;
+            $alvM = null;
+            
+            $visibleM10 = 0;
+            $m10D = null;
+            $m10H = null;
+            $m10M = null;
+            
+            $visibleOKM = 0;
+            $okmD = null;
+            $okmH = null;
+            $okmM = null;
+            
+            $visibleUNI = 1;
+          
+            
+        }
+
+        View::share('visibleALV', $visibleALV);
+        View::share('visibleM10', $visibleM10);
+        View::share('visibleOKM', $visibleOKM);
+        View::share('visibleUNI', $visibleUNI);
+        
+
         return view('home2', 
                 compact('kpi',
                 'fechasD','alvD','uniD','m10D','okmD',
                 'fechasH','alvH','uniH','m10H','okmH',
                 'fechasM','alvM','uniM','m10M','okmM',
                 'colorALV','colorM10','colorOKM','colorUNI',
-                'alvaverage','m10average','okmaverage','uniaverage'), 
+                'nombreALV','nombreM10','nombreOKM','nombreUNI',
+                'visibleALV','visibleM10','visibleOKM','visibleUNI',
+                ), 
                 compact('diariokpis','ultimoFecha','ultimoHora'))
                     
            ;

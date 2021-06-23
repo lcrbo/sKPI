@@ -32,8 +32,8 @@
   <x-slot name="slot">
 
 
-    <x-contenttitulo>
-      <x-slot name="fechaActualizacion"> </x-slot>
+    <x-contenttitulo> Reporte
+      <x-slot name="fechaActualizacion"></x-slot>
 
     </x-contenttitulo>
 

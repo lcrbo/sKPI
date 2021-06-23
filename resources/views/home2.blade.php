@@ -45,60 +45,95 @@
 
 
       <div class="row">
+      @if ($user->formato == 'ALL')
         @foreach ($diariokpis as $diariokpi)
-        <div class="col-lg-3 col-6">
-
-          @if ($ultimoFecha < date('Y-m-d')) <div class="small-box ">
-            <div class="inner">
-              <!-- <h3>S/I <sup style="font-size: 20px">%</sup></h3>
-                    <h2>{{ $diariokpi->formato }}</h2> -->
-              <h3>S/I </sup></h3>
-              <h2>&nbsp;</h2>
-            </div>
-            <div class="icon">
-              <i class="">
-                <img src="{{ asset('/img/'.$diariokpi->formato.'.png') }}" alt="" class="rounded mx-auto d-block grayscale cover" width="100" height="100" style="opacity: .8">
-              </i>
-            </div>
-            <div class="small-box-footer bg-danger">
-              <a href="" class="small-box-footer">Sin Información para hoy </a>
-            </div>
-
-        </div>
-        @else
-        @if ( $diariokpi->average < $kpi->umbral2 )
-          <div class="small-box bg-danger">
-            @elseif (( $diariokpi->average >= $kpi->umbral2) && ( $diariokpi->average < $kpi->umbral3))
-              <div class="small-box bg-warning">
-                @else ( $diariokpi->average >= $kpi->umbral3)
-                <div class="small-box bg-success">
-                  @endif
-                  <div class="inner">
-                    <!-- <h3>{{ $diariokpi->average }} <sup style="font-size: 20px">{{$kpi->formato}}</sup></h3>
-                    <h2>{{ $diariokpi->formato }}</h2> -->
-                    <h3>{{ ROUND($diariokpi->average,0) }}{{$kpi->formato}}</h3>
-                    <h2>&nbsp;</h2>
-                  </div>
-                  <div class="icon">
-                    <i class="">
-
-                      <img src="{{ asset('/img/'.$diariokpi->formato.'-gris.png') }}" alt="" class="rounded mx-auto d-block" width="100" height="100" style="opacity: .8">
-                    </i>
-                  </div>
-                  <!-- <div class="small-box-footer-center text-center">
-                    <button type="button" class="small-box-footer-center" data_value="{{$diariokpi->formato }}" data-toggle="modal" data-target="#modal-diario-{{$diariokpi->formato}}">
-                      Detalle <i class="fas fa-arrow-circle-right"></i>
-                    </button>
-                  </div> -->
-                   <a href="{{ route('diariokpis.index',[ 'kpiid'=>$kpi->id , 'formato'=>$diariokpi->formato]) }}" class="small-box-footer" >Detalle <i class="fas fa-arrow-circle-right" ></i></a> 
-
-                </div>
-                @endif
+          <div class="col-lg-3 col-6">
+            @if ($ultimoFecha < date('Y-m-d')) <div class="small-box ">
+              <div class="inner">
+                <h3>S/I </sup></h3>
+                <h2>&nbsp;</h2>
               </div>
-              @endforeach
+              <div class="icon">
+                <i class="">
+                  <img src="{{ asset('/img/'.$diariokpi->formato.'.png') }}" alt="" class="rounded mx-auto d-block grayscale cover" width="100" height="100" style="opacity: .8">
+                </i>
+              </div>
+              <div class="small-box-footer bg-danger">
+                <a href="" class="small-box-footer">Sin Información para hoy </a>
+              </div>
+          </div>
+          @else
+          @if ( $diariokpi->average < $kpi->umbral2 )
+            <div class="small-box bg-danger">
+          @elseif (( $diariokpi->average >= $kpi->umbral2) && ( $diariokpi->average < $kpi->umbral3))
+            <div class="small-box bg-warning">
+          @else ( $diariokpi->average >= $kpi->umbral3)
+            <div class="small-box bg-success">
+          @endif
+              <div class="inner">
+                <h3>{{ ROUND($diariokpi->average,0) }}{{$kpi->formato}}</h3>
+                
+              </div>
+              
+                
+                  <img src="{{ asset('/img/'.$diariokpi->formato.'-gris.png') }}" alt="" class="rounded mx-auto d-block" width="100" height="100" style="opacity: .8">
+               
+              
+              <a href="{{ route('diariokpis.index',[ 'kpiid'=>$kpi->id , 'formato'=>$diariokpi->formato]) }}" class="small-box-footer" >Detalle <i class="fas fa-arrow-circle-right" ></i></a> 
+            </div>
+          @endif
+          </div>
+          @endforeach
+
+
+          @else 
+
+          <div class="col-lg-4 "></div>
+          @foreach ($diariokpis as $diariokpi)
+          @if ( $diariokpi->formato == $user->formato)
+          <div class="col-lg-4 ">
+            @if ($ultimoFecha < date('Y-m-d')) <div class="small-box ">
+              <div class="inner">
+                <h3>S/I </sup></h3>
+                <h2>&nbsp;</h2>
+              </div>
+              <div class="icon">
+                <i class="">
+                  <img src="{{ asset('/img/'.$diariokpi->formato.'.png') }}" alt="" class="rounded mx-auto d-block grayscale cover" width="100" height="100" style="opacity: .8">
+                </i>
+              </div>
+              <div class="small-box-footer bg-danger">
+                <a href="" class="small-box-footer">Sin Información para hoy </a>
+              </div>
+          </div>
+          @else
+          @if ( $diariokpi->average < $kpi->umbral2 )
+            <div class="small-box bg-danger">
+          @elseif (( $diariokpi->average >= $kpi->umbral2) && ( $diariokpi->average < $kpi->umbral3))
+            <div class="small-box bg-warning">
+          @else ( $diariokpi->average >= $kpi->umbral3)
+            <div class="small-box bg-success">
+          @endif
+              <div class="inner">
+                <h3>{{ ROUND($diariokpi->average,0) }}{{$kpi->formato}}</h3>
+                <h2>&nbsp;</h2>
+              </div>
+              <div class="icon">
+                <i class="">
+                  <img src="{{ asset('/img/'.$diariokpi->formato.'-gris.png') }}" alt="" class="rounded mx-auto d-block" width="100" height="100" style="opacity: .8">
+                </i>
+              </div>
+              <a href="{{ route('diariokpis.index',[ 'kpiid'=>$kpi->id , 'formato'=>$diariokpi->formato]) }}" class="small-box-footer" >Detalle <i class="fas fa-arrow-circle-right" ></i></a> 
+            </div>
+          @endif
+          </div>
+          @endif
+          @endforeach
+          <div class="col-lg-4   "></div>
+    @endif
           </div>
 
-
+      
 
           @if ( $ultimoFecha < date('Y-m-d') ) <!-- ALERTA SIN INFORMACION PARA HOY -->
             <!--  <div class="alert alert-danger bg-danger fade show" role="alert">
@@ -168,7 +203,7 @@
                       <figure class="highcharts-figure">
                         <div id="containerD"></div>
                       </figure>
-                      {{$alvD}}
+                      
                       @endif
                     </div>
                   </div>
@@ -329,23 +364,30 @@
                     </div>
                     <div class="card-body">
                       <div class="form-group">
-
+                        @if ($visibleALV == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" checked <?php if (isset($formato) && $formato == "ALV") echo "checked"; ?> value="ALV">
                           <label class="form-check-label">Alvi</label>
                         </div>
+                        @endif
+                        @if ($visibleM10 == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" <?php if (isset($formato) && $formato == "M10") echo "checked"; ?> value="M10">
                           <label class="form-check-label">Mayorista 10</label>
                         </div>
+                        @endif
+                        @if ($visibleOKM == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" <?php if (isset($formato) && $formato == "OKM") echo "checked"; ?> value="OKM">
                           <label class="form-check-label">OKMarket</label>
                         </div>
+                        @endif
+                        @if ($visibleUNI == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" <?php if (isset($formato) && $formato == "UNI") echo "checked"; ?> value="UNI">
                           <label class="form-check-label">Unimarc</label>
                         </div>
+                        @endif
                       </div>
                     </div>
 
@@ -421,23 +463,30 @@
                     </div>
                     <div class="card-body">
                       <div class="form-group">
-
+                      @if ($visibleALV == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" checked <?php if (isset($formato) && $formato == "ALV") echo "checked"; ?> value="ALV">
                           <label class="form-check-label">Alvi</label>
                         </div>
+                       @endif
+                       @if ($visibleM10 == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" <?php if (isset($formato) && $formato == "M10") echo "checked"; ?> value="M10">
                           <label class="form-check-label">Mayorista 10</label>
                         </div>
+                        @endif
+                        @if ($visibleOKM == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" <?php if (isset($formato) && $formato == "OKM") echo "checked"; ?> value="OKM">
                           <label class="form-check-label">OKMarket</label>
                         </div>
+                      @endif
+                      @if ($visibleUNI == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" <?php if (isset($formato) && $formato == "UNI") echo "checked"; ?> value="UNI">
                           <label class="form-check-label">Unimarc</label>
                         </div>
+                      @endif
                       </div>
                     </div>
 
@@ -510,23 +559,30 @@
                     </div>
                     <div class="card-body">
                       <div class="form-group">
-
+                      @if ($visibleALV == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" checked <?php if (isset($formato) && $formato == "ALV") echo "checked"; ?> value="ALV">
                           <label class="form-check-label">Alvi</label>
                         </div>
+                        @endif
+                        @if ($visibleM10 == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" <?php if (isset($formato) && $formato == "M10") echo "checked"; ?> value="M10">
                           <label class="form-check-label">Mayorista 10</label>
                         </div>
+                        @endif
+                        @if ($visibleOKM == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" <?php if (isset($formato) && $formato == "OKM") echo "checked"; ?> value="OKM">
                           <label class="form-check-label">OKMarket</label>
                         </div>
+                        @endif
+                        @if ($visibleUNI == 1)
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" <?php if (isset($formato) && $formato == "UNI") echo "checked"; ?> value="UNI">
                           <label class="form-check-label">Unimarc</label>
                         </div>
+                        @endif
                       </div>
                     </div>
 
@@ -888,6 +944,10 @@
         var m10D = <?php echo json_encode($m10D)  ?>;
         var okmD = <?php echo json_encode($okmD)  ?>;
 
+        var visibleALV = <?php echo $visibleALV  ?>;
+        var visibleM10 = <?php echo $visibleM10  ?>;
+        var visibleOKM = <?php echo $visibleOKM  ?>;
+        var visibleUNI = <?php echo $visibleUNI  ?>;
 
 
         let chartD = Highcharts.chart('containerD', {
@@ -974,34 +1034,36 @@
             label: {
               enabled: false,
             },
-            name: 'Alvi',
+            name: '{{$nombreALV}}',
 
             color: '{{$colorALV}}',
-            data: alvD
+            data: alvD, 
+            
+            showInLegend: visibleALV,
           }, {
             name: 'Unimarc',
             label: {
               enabled: false,
             },
             color: '{{$colorUNI}}',
-            data: uniD
-
+            data: uniD,
+            showInLegend: visibleUNI,
           }, {
             name: 'Mayorista 10',
             label: {
               enabled: false,
             },
             color: '{{$colorM10}}',
-            data: m10D
-
+            data: m10D,
+            showInLegend: visibleM10,
           }, {
             name: 'OKMarket',
             label: {
               enabled: false,
             },
             color: '{{$colorOKM}}',
-            data: okmD
-
+            data: okmD,
+            showInLegend: visibleOKM,
           }],
 
           responsive: {
@@ -1140,19 +1202,21 @@
             }
           },
           series: [{
-            name: 'Alvi',
+            name: '{{$nombreALV}}',
             label: {
               enabled: false,
             },
             color: '{{$colorALV}}',
-            data: alvH
+            data: alvH,
+            showInLegend: visibleALV,
           }, {
             name: 'Unimarc',
             label: {
               enabled: false,
             },
             color: '{{$colorUNI}}',
-            data: uniH
+            data: uniH,
+            showInLegend: visibleUNI,
 
           }, {
             name: 'Mayorista 10',
@@ -1160,7 +1224,8 @@
               enabled: false,
             },
             color: '{{$colorM10}}',
-            data: m10H
+            data: m10H,
+            showInLegend: visibleM10,
 
           }, {
             name: 'OKMarket',
@@ -1168,7 +1233,8 @@
               enabled: false,
             },
             color: '{{$colorOKM}}',
-            data: okmH
+            data: okmH,
+            showInLegend: visibleOKM,
 
           }],
 
@@ -1316,14 +1382,16 @@
               enabled: false,
             },
             color: '{{$colorALV}}',
-            data: alvM
+            data: alvM,
+            showInLegend: visibleALV,
           }, {
             name: 'Unimarc',
             label: {
               enabled: false,
             },
             color: '{{$colorUNI}}',
-            data: uniM
+            data: uniM,
+            showInLegend: visibleUNI,
 
           }, {
             name: 'Mayorista 10',
@@ -1331,7 +1399,8 @@
               enabled: false,
             },
             color: '{{$colorM10}}',
-            data: m10M
+            data: m10M,
+            showInLegend: visibleM10,
 
           }, {
             name: 'OKMarket',
@@ -1339,7 +1408,8 @@
               enabled: false,
             },
             color: '{{$colorOKM}}',
-            data: okmM
+            data: okmM,
+            showInLegend: visibleOKM,
 
           }],
 
@@ -1396,192 +1466,8 @@
           });
         });
 
-        var alvaverage = <?php echo json_encode($alvaverage)  ?>;
-        var m10average = <?php echo json_encode($m10average)  ?>;
-        var okmaverage = <?php echo json_encode($okmaverage)  ?>;
-        var uniaverage = <?php echo json_encode($uniaverage)  ?>;
+        
 
-        var gaugeOptions = {
-          chart: {
-            type: 'solidgauge',
-
-          },
-
-          title: null,
-
-          pane: {
-
-            size: '100%',
-            startAngle: -90,
-            endAngle: 90,
-            background: {
-              backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
-              innerRadius: '60%',
-              outerRadius: '100%',
-              shape: 'arc'
-            }
-          },
-
-          exporting: {
-            enabled: false
-          },
-
-          tooltip: {
-            enabled: false
-          },
-
-          // the value axis
-          yAxis: {
-
-            stops: [
-
-              [0.80, 'red'], // green
-
-              [0.9, 'yellow'], // yellow
-
-              [0.91, 'green'] // red
-
-            ],
-
-            title: {
-              y: -70
-            },
-            labels: {
-              y: 16
-            }
-          },
-
-          plotOptions: {
-            solidgauge: {
-              dataLabels: {
-                y: 5,
-                borderWidth: 0,
-                useHTML: true
-              }
-            }
-          }
-        };
-
-
-
-
-        // The speed gauge
-        var chartSpeed = Highcharts.chart('container-speed-ALV', Highcharts.merge(gaugeOptions, {
-          yAxis: {
-            min: 0,
-            max: 100,
-
-          },
-
-          credits: {
-            enabled: false
-          },
-
-          series: [{
-            name: 'Speed',
-            data: [alvaverage],
-            dataLabels: {
-              format: '<div style="text-align:center">' +
-                '<span style="font-size:25px">{y}%</span><br/>' +
-
-                '</div>'
-            },
-
-            color: 'red'
-
-          }]
-
-        }), );
-
-        // The speed gauge
-        var chartSpeed = Highcharts.chart('container-speed-M10', Highcharts.merge(gaugeOptions, {
-          yAxis: {
-            min: 0,
-            max: 100,
-
-          },
-
-          credits: {
-            enabled: false
-          },
-
-          series: [{
-            name: 'Speed',
-            data: [m10average],
-            dataLabels: {
-              format: '<div style="text-align:center">' +
-                '<span style="font-size:25px">{y}%</span><br/>' +
-
-                '</div>'
-            },
-
-          }]
-
-        }));
-
-        // The speed gauge
-        var chartSpeed = Highcharts.chart('container-speed-OKM', Highcharts.merge(gaugeOptions, {
-          yAxis: {
-            min: 0,
-            max: 100,
-
-          },
-
-          credits: {
-            enabled: false
-          },
-
-          series: [{
-            name: 'Speed',
-            data: [okmaverage],
-            dataLabels: {
-              format: '<div style="text-align:center">' +
-                '<span style="font-size:25px">{y}%</span><br/>' +
-
-                '</div>'
-            },
-
-          }]
-
-        }));
-
-        // The speed gauge
-        var chartSpeed = Highcharts.chart('container-speed-UNI', Highcharts.merge(gaugeOptions, {
-          yAxis: {
-            min: 0,
-            max: 100,
-
-          },
-
-          credits: {
-            enabled: false
-          },
-
-          series: [{
-            name: 'Speed',
-            data: [uniaverage],
-            dataLabels: {
-              format: '<div style="text-align:center">' +
-                '<span style="font-size:25px">{y}%</span><br/>' +
-
-                '</div>'
-            },
-
-          }]
-
-        }));
-
-        upRandom = function() {
-
-          var chart = Highcharts.charts[0];
-          var point = chart.series[0].points[0];
-          var color = point >= 80 ? [255, 0, 0, 1] : (newGuageValue >= 60 ? [255, 255, 0, 1] : [0, 255, 0, 1]);
-          chart.yAxis[0].stops[0].color.rgba = color;
-          chart.yAxis[0].stops[1].color.rgba = color;
-          point.update(newGuageValue);
-
-          setTimeout(upRandom, 1000);
-        }
       </script>
 
 
@@ -1623,6 +1509,8 @@
 
       <script type="text/javascript">
         $(function() {
+
+          
           //Initialize Select2 Elements
           $('.select2').select2()
 

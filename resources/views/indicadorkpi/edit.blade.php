@@ -44,7 +44,12 @@
                     <x-slot name="nombre">Descripción Símbolo</x-slot> 
                     <x-slot name="campo">descripcionsyb</x-slot> 
                     <x-slot name="valor">{{old('descripcionsyb',$indicadorkpi->descripcionsyb)}}</x-slot> 
-                </x-label>         
+                </x-label>    
+                <x-label>
+                    <x-slot name="nombre">Cantidad de horas máximo de visualización</x-slot> 
+                    <x-slot name="campo">horasmax</x-slot> 
+                    <x-slot name="valor">{{$indicadorkpi->horasmax}}</x-slot> 
+                </x-label>     
                 <x-label>
                     <x-slot name="nombre">Cantidad de días máximo de visualización</x-slot> 
                     <x-slot name="campo">diasmax</x-slot> 

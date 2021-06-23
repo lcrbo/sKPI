@@ -24,6 +24,6 @@ class UserSeeder extends Seeder
             'name' => 'Leonardo Cruz',
             'email' => 'leo.crbo@gmail.com',
             'password' => bcrypt('12345678')
-        ])->assignRole('PorFormatos');
+        ])->assignRole('Admin');
     }
 }

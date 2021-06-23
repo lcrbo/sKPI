@@ -49,7 +49,7 @@ class Indicadorkpi extends Model
      *
      * @var array
      */
-    protected $fillable = [ 'nombre','descripcion','formato','descripcionsyb','diasmax','mesesmax','umbral1','umbral2','umbral3','umbral4','errorsindata'];
+    protected $fillable = [ 'nombre','descripcion','formato','descripcionsyb','diasmax','horasmax', 'mesesmax','umbral1','umbral2','umbral3','umbral4','errorsindata'];
 
 
     /**
