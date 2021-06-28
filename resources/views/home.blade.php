@@ -12,8 +12,8 @@
         </x-contenttitulo>
 
         <section class="content">
-
-        @if ($user->formato == 'ALL')
+        
+        @if (Auth::user()->formato == 'ALL')
             <div class="row  ">
                 @foreach ($diariokpis as $diariokpi)
                 <div class="col-lg-3 col-3 ">
@@ -44,12 +44,14 @@
 
         <div class="row  ">
                 @foreach ($diariokpis as $diariokpi)
+                @if ( $diariokpi->formato == Auth::user()->formato)
                 <div class="col-lg-4 ">
 
-                @if ( $diariokpi->formato == $user->formato)
+                
                     <img src="{{ asset('/img/'.$diariokpi->formato.'.png') }}" alt="" class="rounded mx-auto d-block" width="100" height="100" style="opacity: .8">
+                    </div>
                 @endif
-                </div>
+                
                 @endforeach
             </div>
 
@@ -57,18 +59,24 @@
             <i class="fas fa-th mr-1"></i>{{ $kpi->nombre }} [ % Locales ]
             <div class="row">
                 @foreach ($kpis[0]->datosD as $dato)
-                <div class="col-lg-4">
-                   
-                @if ( $dato->formato == $user->formato)
                 
+                   
+                @if ( $dato->formato == Auth::user()->formato)
+                <div class="col-lg-4">
                     <figure class="highcharts-figure" >
-                @else
-                <figure class="highcharts-figure" style="display:none ">
-                @endif
                         <div id="container-{{$kpi->id}}-{{$dato->formato}}"></div>
                     </figure>
                 
                 </div>
+                @else
+                <div class="">
+                    <figure class="highcharts-figure" style="display:none ">
+                     <div id="container-{{$kpi->id}}-{{$dato->formato}}"></div>
+                    </figure>
+                
+                </div>
+                @endif
+                        
                 @endforeach
             </div>
             @endforeach

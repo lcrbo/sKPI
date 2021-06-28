@@ -101,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('users.password', $user->id) }}"
+                                    <a class="dropdown-item" href="{{ route('users.password', Auth::user()->id) }}"
                                        >
                                         {{ __('Cambiar Contraseña') }}
                                     </a>
@@ -322,13 +322,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-group">
                 @if ( Auth::user()->getRoleNames()[0] == "PorUnLocal")
                   <div class="form-check">
-                          <input class="form-check-input" type="radio" name="formato" id="formato{{$user->formato}}" 
+                          <input class="form-check-input" type="radio" name="formato" id="formato{{Auth::user()->formato}}" 
                            checked
-                            value="{{$user->formato}}">
-                          <label class="form-check-label">{{$user->formato}}</label>
+                            value="{{Auth::user()->formato}}">
+                          <label class="form-check-label">{{Auth::user()->formato}}</label>
                       </div>
                 @else
-                @if (( $user->formato == 'ALL')  || ( $user->formato == 'ALV') )
+                @if (( Auth::user()->formato == 'ALL')  || ( Auth::user()->formato == 'ALV') )
                       <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato" id="formatoALV" 
                            <?php if (isset($formato) && $formato=="ALV") echo "checked";?> 
@@ -336,7 +336,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <label class="form-check-label">Alvi</label>
                       </div>
                 @endif
-                @if (( $user->formato == 'ALL')  || ( $user->formato == 'M10') )
+                @if (( Auth::user()->formato == 'ALL')  || ( Auth::user()->formato == 'M10') )
                       <div class="form-check">
                         <input  class="form-check-input" type="radio"  name="formato"   id="formatoM10"
                         <?php if (isset($formato) && $formato=="M10") echo "checked";?>
@@ -344,7 +344,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <label class="form-check-label">Mayorista 10</label>
                       </div>
                  @endif     
-                 @if (( $user->formato == 'ALL')  || ( $user->formato == 'OKM') )
+                 @if (( Auth::user()->formato == 'ALL')  || ( Auth::user()->formato == 'OKM') )
                         <div class="form-check">
                           <input  class="form-check-input" type="radio" name="formato"   id="formatoOKM"
                           <?php if (isset($formato) && $formato=="OKM") echo "checked";?>
@@ -352,7 +352,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <label class="form-check-label">OKMarket</label>
                         </div>
                    @endif
-                   @if (( $user->formato == 'ALL')  || ( $user->formato == 'UNI') )     
+                   @if (( Auth::user()->formato == 'ALL')  || ( Auth::user()->formato == 'UNI') )     
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="formato"  id="formatoUNI"
                           <?php if (isset($formato) && $formato=="UNI") echo "checked";?>
@@ -377,14 +377,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 
                 @if ( Auth::user()->getRoleNames()[0] == "PorUnLocal")  
                       <select name="local" id="localesbyid" class="shadow-sm focus:ring-indigo-500 focus:border-red-500 mt-1 block w-full sm:text-sm border-red-300 rounded-md" >
-                          <option value="{{$user->local}}">{{$user->local}}</option>
+                          <option value="{{Auth::user()->local}}">{{Auth::user()->local}}</option>
                           
                         </select>
                 @else    
                 <x-label>
                     <x-slot name="nombre">Local</x-slot> 
                     <x-slot name="campo">local</x-slot> 
-                    <x-slot name="valor">{{old('local',$user->local)}}</x-slot> 
+                    <x-slot name="valor">{{old('local',Auth::user()->local)}}</x-slot> 
                 </x-label>
 
                    <!--      <select name="local" id="localesbyid" class="shadow-sm focus:ring-indigo-500 focus:border-red-500 mt-1 block w-full sm:text-sm border-red-300 rounded-md" >

@@ -36,9 +36,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
+        $usuario = Auth::user();
        
-        View::share('user', $user);
+        View::share('usuario', $usuario);
         
         $data = User::orderBy('id','DESC')->paginate(5);
         return view('users.index',compact('data'))
@@ -52,9 +52,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
+        $usuario = Auth::user();
        
-        View::share('user', $user);
+        View::share('usuario', $usuario);
         $roles = Role::pluck('name','name')->all();
         return view('users.create',compact('roles'));
     }
@@ -108,8 +108,8 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
      
-       
-        View::share('user', $user);
+        $usuario = Auth::user();
+        View::share('usuario', $usuario);
         return view('users.edit',compact('user','roles','userRole'));
     }
     
@@ -122,6 +122,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
@@ -166,8 +167,8 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
      
-       
-        View::share('user', $user);
+        $usuario = Auth::user();
+        View::share('usuario', $usuario);
         return view('users.password',compact('user','roles','userRole'));
     }
 
